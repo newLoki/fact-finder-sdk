@@ -1,8 +1,8 @@
-namespace: Payone
+namespace: FactFinderSdk
 
 include:
-    - tests/SprykerEcoTest/Yves/Payone
-    - tests/SprykerEcoTest/Zed/Payone
+    - tests/SprykerEcoTest/Client/FactFinderSdk
+    - tests/SprykerEcoTest/Zed/FactFinderSdk
 
 paths:
     tests: tests
