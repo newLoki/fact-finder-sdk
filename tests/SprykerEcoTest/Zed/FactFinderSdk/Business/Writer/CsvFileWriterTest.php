@@ -5,7 +5,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Functional\SprykerEco\Zed\FactFinderSdk\Business\Writer;
+namespace SprykerEcoTest\Zed\FactFinderSdk\Business\Writer;
 
 use Codeception\Configuration;
 use Codeception\TestCase\Test;

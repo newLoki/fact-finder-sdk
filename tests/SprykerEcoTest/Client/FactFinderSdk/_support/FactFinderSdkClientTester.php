@@ -1,5 +1,5 @@
 <?php
-namespace FactFinder;
+namespace SprykerEcoTest\Zed\FactFinderSdk;
 
 use Codeception\Actor;
 
@@ -18,13 +18,11 @@ use Codeception\Actor;
  *
  * @SuppressWarnings(PHPMD)
  */
-class FunctionalTester extends Actor
+class FactFinderSdkClientTester extends Actor
 {
-
-    use _generated\FunctionalTesterActions;
+    use _generated\FactFinderSdkClientTesterActions;
 
    /**
     * Define custom actions here
     */
-
 }
