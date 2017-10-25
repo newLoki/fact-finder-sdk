@@ -16,7 +16,6 @@ use SprykerEco\Zed\FactFinderSdk\FactFinderSdkDependencyProvider;
  */
 class FactFinderSdkPersistenceFactory extends AbstractPersistenceFactory
 {
-
     /**
      * @return \SprykerEco\Zed\FactFinderSdk\Dependency\Persistence\FactFinderSdkToProductAbstractDataFeedInterface
      */
@@ -32,5 +31,4 @@ class FactFinderSdkPersistenceFactory extends AbstractPersistenceFactory
     {
         return $this->getProvidedDependency(FactFinderSdkDependencyProvider::CATEGORY_DATA_FEED);
     }
-
 }

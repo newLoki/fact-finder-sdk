@@ -10,29 +10,13 @@ namespace SprykerEco\Client\FactFinderSdk\Business\Api\Converter\Data;
 use FACTFinder\Data\Paging;
 use Generated\Shared\Transfer\FactFinderSdkDataPageTransfer;
 use Generated\Shared\Transfer\FactFinderSdkDataPagingTransfer;
-use SprykerEco\Client\FactFinderSdk\Business\Api\Converter\BaseConverter;
 
-class PagingConverter extends BaseConverter
+class PagingConverter extends BaseDataConverter implements PagingConverterInterface
 {
-
     /**
      * @var \FACTFinder\Data\Paging
      */
     protected $paging;
-
-    /**
-     * @var \SprykerEco\Client\FactFinderSdk\Business\Api\Converter\Data\ItemConverter
-     */
-    protected $itemConverter;
-
-    /**
-     * @param \SprykerEco\Client\FactFinderSdk\Business\Api\Converter\Data\ItemConverter $itemConverter
-     */
-    public function __construct(
-        ItemConverter $itemConverter
-    ) {
-        $this->itemConverter = $itemConverter;
-    }
 
     /**
      * @param \FACTFinder\Data\Paging $paging
@@ -73,12 +57,11 @@ class PagingConverter extends BaseConverter
         }
 
         $factFinderDataPageTransfer->setPageNumber($page->getPageNumber());
-        $this->itemConverter->setItem($page);
+        $this->dataConverter->setItem($page);
         $factFinderDataPageTransfer->setItem(
-            $this->itemConverter->convert()
+            $this->dataConverter->convert()
         );
 
         return $factFinderDataPageTransfer;
     }
-
 }

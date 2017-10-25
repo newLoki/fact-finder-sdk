@@ -19,8 +19,9 @@ use Spryker\Client\Kernel\AbstractClient;
  */
 class FactFinderSdkClient extends AbstractClient implements FactFinderSdkClientInterface
 {
-
     /**
+     * {@inheritdoc}
+     *
      * @api
      *
      * @param \Generated\Shared\Transfer\FactFinderSdkSearchRequestTransfer $factFinderSearchRequestTransfer
@@ -38,6 +39,8 @@ class FactFinderSdkClient extends AbstractClient implements FactFinderSdkClientI
     }
 
     /**
+     * {@inheritdoc}
+     *
      * @api
      *
      * @param \Generated\Shared\Transfer\FactFinderSdkTrackingRequestTransfer $factFinderTrackingRequestTransfer
@@ -54,6 +57,8 @@ class FactFinderSdkClient extends AbstractClient implements FactFinderSdkClientI
     }
 
     /**
+     * {@inheritdoc}
+     *
      * @api
      *
      * @param \Generated\Shared\Transfer\FactFinderSdkSuggestRequestTransfer $factFinderSuggestRequestTransfer
@@ -71,6 +76,8 @@ class FactFinderSdkClient extends AbstractClient implements FactFinderSdkClientI
     }
 
     /**
+     * {@inheritdoc}
+     *
      * @api
      *
      * @param \Generated\Shared\Transfer\FactFinderSdkRecommendationRequestTransfer $factFinderRecommendationRequestTransfer
@@ -88,6 +95,8 @@ class FactFinderSdkClient extends AbstractClient implements FactFinderSdkClientI
     }
 
     /**
+     * {@inheritdoc}
+     *
      * @api
      *
      * @param \Generated\Shared\Transfer\FactFinderSdkProductCampaignRequestTransfer $factFinderSdkProductCampaignRequestTransfer
@@ -105,8 +114,9 @@ class FactFinderSdkClient extends AbstractClient implements FactFinderSdkClientI
     }
 
     /**
-     * Specification:
-     * - Returns shopping cart campaigns.
+     * {@inheritdoc}
+     *
+     * @api
      *
      * @param \Generated\Shared\Transfer\FactFinderSdkProductCampaignRequestTransfer $factFinderSdkProductCampaignRequestTransfer
      *
@@ -121,16 +131,4 @@ class FactFinderSdkClient extends AbstractClient implements FactFinderSdkClientI
 
         return $factFinderSdkProductCampaignResponseTransfer;
     }
-
-    /**
-     * @api
-     *
-     * @return \Spryker\Client\Session\SessionClientInterface
-     */
-    public function getSession()
-    {
-        return $this->getFactory()
-            ->getSession();
-    }
-
 }

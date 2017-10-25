@@ -23,14 +23,13 @@ use Orm\Zed\Stock\Persistence\Map\SpyStockProductTableMap;
 use Orm\Zed\Url\Persistence\Map\SpyUrlTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractQueryContainer;
 use Spryker\Zed\PropelOrm\Business\Runtime\ActiveQuery\Criteria;
-use SprykerEco\Shared\FactFinderSdk\FactFinderSdkConstants;
+use SprykerEco\Shared\FactFinderSdk\FactFinderSdkConfig;
 
 /**
  * @method \SprykerEco\Zed\FactFinderSdk\Persistence\FactFinderSdkPersistenceFactory getFactory()
  */
 class FactFinderSdkQueryContainer extends AbstractQueryContainer implements FactFinderSdkQueryContainerInterface
 {
-
     const STOCK_QUANTITY_CONDITION = 'STOCK_QUANTITY_CONDITION';
     const STOCK_NEVER_OUTOFSTOCK_CONDITION = 'STOCK_NEVER_OUTOFSTOCK_CONDITION';
 
@@ -61,7 +60,6 @@ class FactFinderSdkQueryContainer extends AbstractQueryContainer implements Fact
             ->endUse();
 
         $productsAbstractQuery = $this->addColumns($productsAbstractQuery);
-//        $productsAbstractQuery = $this->addInStockConditions($productsAbstractQuery);
 
         return $productsAbstractQuery;
     }
@@ -95,17 +93,17 @@ class FactFinderSdkQueryContainer extends AbstractQueryContainer implements Fact
      */
     protected function addColumns(SpyProductAbstractQuery $productsAbstractQuery)
     {
-        $productsAbstractQuery->withColumn(SpyProductTableMap::COL_ID_PRODUCT, FactFinderSdkConstants::ITEM_PRODUCT_NUMBER);
-        $productsAbstractQuery->withColumn(SpyProductLocalizedAttributesTableMap::COL_NAME, FactFinderSdkConstants::ITEM_NAME);
-        $productsAbstractQuery->withColumn(SpyPriceProductTableMap::COL_PRICE, FactFinderSdkConstants::ITEM_PRICE);
-        $productsAbstractQuery->withColumn(SpyStockProductTableMap::COL_QUANTITY, FactFinderSdkConstants::ITEM_STOCK);
-        $productsAbstractQuery->withColumn(SpyCategoryAttributeTableMap::COL_NAME, FactFinderSdkConstants::ITEM_CATEGORY);
-        $productsAbstractQuery->withColumn(SpyProductImageTableMap::COL_EXTERNAL_URL_LARGE, FactFinderSdkConstants::ITEM_IMAGE_URL);
-        $productsAbstractQuery->withColumn(SpyProductLocalizedAttributesTableMap::COL_DESCRIPTION, FactFinderSdkConstants::ITEM_DESCRIPTION);
-        $productsAbstractQuery->withColumn(SpyProductCategoryTableMap::COL_FK_CATEGORY, FactFinderSdkConstants::ITEM_CATEGORY_ID);
-        $productsAbstractQuery->withColumn(SpyCategoryNodeTableMap::COL_FK_PARENT_CATEGORY_NODE, FactFinderSdkConstants::ITEM_PARENT_CATEGORY_NODE_ID);
-        $productsAbstractQuery->withColumn(SpyUrlTableMap::COL_URL, FactFinderSdkConstants::ITEM_PRODUCT_URL);
-        $productsAbstractQuery->withColumn(SpyProductTableMap::COL_FK_PRODUCT_ABSTRACT, FactFinderSdkConstants::ITEM_MASTER_ID);
+        $productsAbstractQuery->withColumn(SpyProductTableMap::COL_ID_PRODUCT, FactFinderSdkConfig::ITEM_PRODUCT_NUMBER);
+        $productsAbstractQuery->withColumn(SpyProductLocalizedAttributesTableMap::COL_NAME, FactFinderSdkConfig::ITEM_NAME);
+        $productsAbstractQuery->withColumn(SpyPriceProductTableMap::COL_PRICE, FactFinderSdkConfig::ITEM_PRICE);
+        $productsAbstractQuery->withColumn(SpyStockProductTableMap::COL_QUANTITY, FactFinderSdkConfig::ITEM_STOCK);
+        $productsAbstractQuery->withColumn(SpyCategoryAttributeTableMap::COL_NAME, FactFinderSdkConfig::ITEM_CATEGORY);
+        $productsAbstractQuery->withColumn(SpyProductImageTableMap::COL_EXTERNAL_URL_LARGE, FactFinderSdkConfig::ITEM_IMAGE_URL);
+        $productsAbstractQuery->withColumn(SpyProductLocalizedAttributesTableMap::COL_DESCRIPTION, FactFinderSdkConfig::ITEM_DESCRIPTION);
+        $productsAbstractQuery->withColumn(SpyProductCategoryTableMap::COL_FK_CATEGORY, FactFinderSdkConfig::ITEM_CATEGORY_ID);
+        $productsAbstractQuery->withColumn(SpyCategoryNodeTableMap::COL_FK_PARENT_CATEGORY_NODE, FactFinderSdkConfig::ITEM_PARENT_CATEGORY_NODE_ID);
+        $productsAbstractQuery->withColumn(SpyUrlTableMap::COL_URL, FactFinderSdkConfig::ITEM_PRODUCT_URL);
+        $productsAbstractQuery->withColumn(SpyProductTableMap::COL_FK_PRODUCT_ABSTRACT, FactFinderSdkConfig::ITEM_MASTER_ID);
 
         return $productsAbstractQuery;
     }
@@ -132,5 +130,4 @@ class FactFinderSdkQueryContainer extends AbstractQueryContainer implements Fact
 
         return $productsAbstractQuery;
     }
-
 }

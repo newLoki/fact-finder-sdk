@@ -9,16 +9,15 @@ namespace SprykerEco\Zed\FactFinderSdk\Business\Exporter;
 
 use Generated\Shared\Transfer\LocaleTransfer;
 use Orm\Zed\Product\Persistence\Base\SpyProductAbstractQuery;
-use SprykerEco\Shared\FactFinderSdk\FactFinderSdkConstants;
-use SprykerEco\Zed\FactFinderSdk\Business\Writer\AbstractFileWriter;
+use SprykerEco\Shared\FactFinderSdk\FactFinderSdkConfig as SharedFactFinderSdkConfig;
+use SprykerEco\Zed\FactFinderSdk\Business\Writer\FileWriterInterface;
 use SprykerEco\Zed\FactFinderSdk\FactFinderSdkConfig;
 use SprykerEco\Zed\FactFinderSdk\Persistence\FactFinderSdkQueryContainerInterface;
 
 class FactFinderSdkProductExporter implements FactFinderSdkProductExporterInterface
 {
-
     /**
-     * @var \SprykerEco\Zed\FactFinderSdk\Business\Writer\AbstractFileWriter
+     * @var \SprykerEco\Zed\FactFinderSdk\Business\Writer\FileWriterInterface
      */
     protected $fileWriter;
 
@@ -65,13 +64,13 @@ class FactFinderSdkProductExporter implements FactFinderSdkProductExporterInterf
     /**
      * FactFinderProductExporterPlugin constructor.
      *
-     * @param \SprykerEco\Zed\FactFinderSdk\Business\Writer\AbstractFileWriter $fileWriter
+     * @param \SprykerEco\Zed\FactFinderSdk\Business\Writer\FileWriterInterface $fileWriter
      * @param \Generated\Shared\Transfer\LocaleTransfer $localeTransfer
      * @param \SprykerEco\Zed\FactFinderSdk\FactFinderSdkConfig $factFinderConfig
      * @param \SprykerEco\Zed\FactFinderSdk\Persistence\FactFinderSdkQueryContainerInterface $factFinderQueryContainer
      */
     public function __construct(
-        AbstractFileWriter $fileWriter,
+        FileWriterInterface $fileWriter,
         LocaleTransfer $localeTransfer,
         FactFinderSdkConfig $factFinderConfig,
         FactFinderSdkQueryContainerInterface $factFinderQueryContainer
@@ -175,7 +174,7 @@ class FactFinderSdkProductExporter implements FactFinderSdkProductExporterInterf
 
         foreach ($data as $row) {
             $prepared = [];
-            $categoriesPathArray = $this->getCategoryPathArray($localeTransfer, $row[FactFinderSdkConstants::ITEM_CATEGORY_ID]);
+            $categoriesPathArray = $this->getCategoryPathArray($localeTransfer, $row[SharedFactFinderSdkConfig::ITEM_CATEGORY_ID]);
             $row = $this->addProductUrl($row);
             $row = $this->addCategoryPath($row, $categoriesPathArray);
             $row = $this->addCategories($row, $categoriesPathArray);
@@ -201,8 +200,8 @@ class FactFinderSdkProductExporter implements FactFinderSdkProductExporterInterf
     protected function addProductUrl($data)
     {
         $productUrl = $this->factFinderConfig
-                ->getYvesHost() . $data[FactFinderSdkConstants::ITEM_PRODUCT_URL];
-        $data[FactFinderSdkConstants::ITEM_PRODUCT_URL] = $productUrl;
+                ->getYvesHost() . $data[SharedFactFinderSdkConfig::ITEM_PRODUCT_URL];
+        $data[SharedFactFinderSdkConfig::ITEM_PRODUCT_URL] = $productUrl;
 
         return $data;
     }
@@ -214,7 +213,7 @@ class FactFinderSdkProductExporter implements FactFinderSdkProductExporterInterf
      */
     protected function encodeDescription($data)
     {
-        $data[FactFinderSdkConstants::ITEM_DESCRIPTION] = urlencode($data[FactFinderSdkConstants::ITEM_DESCRIPTION]);
+        $data[SharedFactFinderSdkConfig::ITEM_DESCRIPTION] = urlencode($data[SharedFactFinderSdkConfig::ITEM_DESCRIPTION]);
 
         return $data;
     }
@@ -231,7 +230,7 @@ class FactFinderSdkProductExporter implements FactFinderSdkProductExporterInterf
             return urlencode($value);
         }, $categoriesPathArray);
 
-        $data[FactFinderSdkConstants::ITEM_CATEGORY_PATH] = implode('/', $categoriesPathArray);
+        $data[SharedFactFinderSdkConfig::ITEM_CATEGORY_PATH] = implode('/', $categoriesPathArray);
 
         return $data;
     }
@@ -247,19 +246,19 @@ class FactFinderSdkProductExporter implements FactFinderSdkProductExporterInterf
         $categoriesMaxCount = $this->factFinderConfig->getCategoriesMaxCount();
 
         for ($i = 1; $i <= $categoriesMaxCount; $i++) {
-            $data[FactFinderSdkConstants::ITEM_CATEGORY . $i] = '';
+            $data[SharedFactFinderSdkConfig::ITEM_CATEGORY . $i] = '';
         }
 
         foreach ($categoriesPathArray as $key => $category) {
             $key++;
 
             if ($key < $categoriesMaxCount) {
-                $data[FactFinderSdkConstants::ITEM_CATEGORY . $key] = $category;
+                $data[SharedFactFinderSdkConfig::ITEM_CATEGORY . $key] = $category;
             }
         }
 
         if (count($categoriesPathArray) > $categoriesMaxCount) {
-            $data[FactFinderSdkConstants::ITEM_CATEGORY . $categoriesMaxCount] = end($categoriesPathArray);
+            $data[SharedFactFinderSdkConfig::ITEM_CATEGORY . $categoriesMaxCount] = end($categoriesPathArray);
         }
 
         return $data;
@@ -308,5 +307,4 @@ class FactFinderSdkProductExporter implements FactFinderSdkProductExporterInterf
         $header = $this->getFileHeader();
         $this->fileWriter->write($filePath, [$header]);
     }
-
 }

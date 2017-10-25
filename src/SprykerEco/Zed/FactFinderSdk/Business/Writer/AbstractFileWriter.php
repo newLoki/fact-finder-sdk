@@ -7,9 +7,8 @@
 
 namespace SprykerEco\Zed\FactFinderSdk\Business\Writer;
 
-abstract class AbstractFileWriter
+abstract class AbstractFileWriter implements FileWriterInterface
 {
-
     /**
      * @var string
      */
@@ -38,5 +37,4 @@ abstract class AbstractFileWriter
             mkdir($directory);
         }
     }
-
 }

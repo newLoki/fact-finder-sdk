@@ -22,7 +22,6 @@ use SprykerEco\Client\FactFinderSdk\Business\Api\Handler\Request\TrackingRequest
  */
 class FactFinderSdkFactory extends AbstractFactory
 {
-
     /**
      * @return \SprykerEco\Client\FactFinderSdk\Business\Api\Handler\Request\SearchRequestInterface
      */
@@ -68,7 +67,7 @@ class FactFinderSdkFactory extends AbstractFactory
     }
 
     /**
-     * @return \SprykerEco\Client\FactFinderSdk\Business\Api\Handler\Request\ProductCampaignRequest
+     * @return \SprykerEco\Client\FactFinderSdk\Business\Api\Handler\Request\ProductCampaignRequestInterface
      */
     public function createProductCampaignRequest()
     {
@@ -79,7 +78,7 @@ class FactFinderSdkFactory extends AbstractFactory
     }
 
     /**
-     * @return \SprykerEco\Client\FactFinderSdk\Business\Api\Handler\Request\ShoppingCartCampaignRequest
+     * @return \SprykerEco\Client\FactFinderSdk\Business\Api\Handler\Request\ProductCampaignRequestInterface
      */
     public function createShoppingCartCampaignRequest()
     {
@@ -90,7 +89,7 @@ class FactFinderSdkFactory extends AbstractFactory
     }
 
     /**
-     * @return \SprykerEco\Client\FactFinderSdk\Business\Api\FactFinderConnector
+     * @return \SprykerEco\Client\FactFinderSdk\Business\Api\FactFinderConnectorInterface
      */
     public function createFactFinderConnector()
     {
@@ -98,7 +97,7 @@ class FactFinderSdkFactory extends AbstractFactory
     }
 
     /**
-     * @return \SprykerEco\Client\FactFinderSdk\Business\Api\Converter\ConverterFactory
+     * @return \SprykerEco\Client\FactFinderSdk\Business\Api\Converter\ConverterFactoryInterface
      */
     protected function createConverterFactory()
     {
@@ -112,5 +111,4 @@ class FactFinderSdkFactory extends AbstractFactory
     {
         return $this->getProvidedDependency(FactFinderSdkDependencyProvider::CLIENT_SESSION);
     }
-
 }

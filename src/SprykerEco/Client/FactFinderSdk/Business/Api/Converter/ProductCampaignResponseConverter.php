@@ -12,18 +12,17 @@ use Generated\Shared\Transfer\FactFinderSdkDataCampaignIteratorTransfer;
 use Generated\Shared\Transfer\FactFinderSdkDataCampaignTransfer;
 use Generated\Shared\Transfer\FactFinderSdkProductCampaignResponseTransfer;
 use SprykerEco\Client\FactFinderSdk\Business\Api\Converter\Data\AdvisorQuestionConverter;
-use SprykerEco\Client\FactFinderSdk\Business\Api\Converter\Data\RecordConverter;
+use SprykerEco\Client\FactFinderSdk\Business\Api\Converter\Data\RecordConverterInterface;
 
 class ProductCampaignResponseConverter extends BaseConverter
 {
-
     /**
      * @var \FACTFinder\Adapter\ProductCampaign
      */
     protected $productCampaignAdapter;
 
     /**
-     * @var \SprykerEco\Client\FactFinderSdk\Business\Api\Converter\Data\RecordConverter
+     * @var \SprykerEco\Client\FactFinderSdk\Business\Api\Converter\Data\RecordConverterInterface
      */
     protected $recordConverter;
 
@@ -36,12 +35,12 @@ class ProductCampaignResponseConverter extends BaseConverter
      * ProductCampaignResponseConverter constructor.
      *
      * @param \FACTFinder\Adapter\ProductCampaign $productCampaignAdapter
-     * @param \SprykerEco\Client\FactFinderSdk\Business\Api\Converter\Data\RecordConverter $recordConverter
+     * @param \SprykerEco\Client\FactFinderSdk\Business\Api\Converter\Data\RecordConverterInterface $recordConverter
      * @param \SprykerEco\Client\FactFinderSdk\Business\Api\Converter\Data\AdvisorQuestionConverter $advisorQuestionConverter
      */
     public function __construct(
         FactFinderProductCampaign $productCampaignAdapter,
-        RecordConverter $recordConverter,
+        RecordConverterInterface $recordConverter,
         AdvisorQuestionConverter $advisorQuestionConverter
     ) {
         $this->productCampaignAdapter = $productCampaignAdapter;
@@ -64,7 +63,7 @@ class ProductCampaignResponseConverter extends BaseConverter
     }
 
     /**
-     * @param \FACTFinder\Data\CampaignIterator $campaigns
+     * @param \FACTFinder\Data\CampaignIterator|\FACTFinder\Data\Result $campaigns
      *
      * @return \Generated\Shared\Transfer\FactFinderSdkDataCampaignIteratorTransfer
      */
@@ -74,7 +73,6 @@ class ProductCampaignResponseConverter extends BaseConverter
         $factFinderDataCampaignIteratorTransfer->setHasRedirect($campaigns->hasRedirect());
         $factFinderDataCampaignIteratorTransfer->setRedirectUrl($campaigns->getRedirectUrl());
         $factFinderDataCampaignIteratorTransfer->setHasFeedback($campaigns->hasFeedback());
-//        $factFinderDataCampaignIteratorTransfer->setFeedback($campaigns->getFeedback());
         $factFinderDataCampaignIteratorTransfer->setHasPushedProducts($campaigns->hasPushedProducts());
         /** @var \FACTFinder\Data\Record $pushedProduct */
         foreach ($campaigns->getPushedProducts() as $pushedProduct) {
@@ -136,5 +134,4 @@ class ProductCampaignResponseConverter extends BaseConverter
 
         return $factFinderDataCampaignIteratorTransfer;
     }
-
 }

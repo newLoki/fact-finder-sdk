@@ -12,29 +12,13 @@ use FACTFinder\Data\FilterGroup;
 use FACTFinder\Data\SliderFilter;
 use Generated\Shared\Transfer\FactFinderSdkDataFilterGroupTransfer;
 use Generated\Shared\Transfer\FactFinderSdkDataFilterTransfer;
-use SprykerEco\Client\FactFinderSdk\Business\Api\Converter\BaseConverter;
 
-class FilterGroupConverter extends BaseConverter
+class FilterGroupConverter extends BaseDataConverter implements FilterGroupConverterInterface
 {
-
     /**
      * @var \FACTFinder\Data\FilterGroup
      */
     protected $filterGroup;
-
-    /**
-     * @var \SprykerEco\Client\FactFinderSdk\Business\Api\Converter\Data\ItemConverter
-     */
-    protected $itemConverter;
-
-    /**
-     * @param \SprykerEco\Client\FactFinderSdk\Business\Api\Converter\Data\ItemConverter $itemConverter
-     */
-    public function __construct(
-        ItemConverter $itemConverter
-    ) {
-        $this->itemConverter = $itemConverter;
-    }
 
     /**
      * @param \FACTFinder\Data\FilterGroup $filterGroup
@@ -88,9 +72,9 @@ class FilterGroupConverter extends BaseConverter
     {
         $factFinderDataFilterTransfer = new FactFinderSdkDataFilterTransfer();
 
-        $this->itemConverter->setItem($filter);
+        $this->dataConverter->setItem($filter);
         $factFinderDataFilterTransfer->setItem(
-            $this->itemConverter->convert()
+            $this->dataConverter->convert()
         );
         $factFinderDataFilterTransfer->setFieldName($filter->getFieldName());
         $factFinderDataFilterTransfer->setMatchCount($filter->getMatchCount());
@@ -107,5 +91,4 @@ class FilterGroupConverter extends BaseConverter
 
         return $factFinderDataFilterTransfer;
     }
-
 }

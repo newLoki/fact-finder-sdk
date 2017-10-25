@@ -10,8 +10,8 @@ namespace SprykerEco\Zed\FactFinderSdk\Business;
 use Generated\Shared\Transfer\LocaleTransfer;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use SprykerEco\Zed\FactFinderSdk\Business\Exporter\FactFinderSdkProductExporter;
-use SprykerEco\Zed\FactFinderSdk\Business\Writer\AbstractFileWriter;
 use SprykerEco\Zed\FactFinderSdk\Business\Writer\CsvFileWriter;
+use SprykerEco\Zed\FactFinderSdk\Business\Writer\FileWriterInterface;
 use SprykerEco\Zed\FactFinderSdk\FactFinderSdkDependencyProvider;
 
 /**
@@ -20,23 +20,14 @@ use SprykerEco\Zed\FactFinderSdk\FactFinderSdkDependencyProvider;
  */
 class FactFinderSdkBusinessFactory extends AbstractBusinessFactory
 {
-
     /**
      * @param \Generated\Shared\Transfer\LocaleTransfer $localeTransfer
      *
-     * @return void
+     * @return \SprykerEco\Zed\FactFinderSdk\Business\Exporter\FactFinderSdkProductExporterInterface
      */
-    public function createCsvFile(LocaleTransfer $localeTransfer)
+    public function getCsvFileExporter(LocaleTransfer $localeTransfer)
     {
-        $this->createFactFinderProductExporter($this->createCsvFileWriter(), $localeTransfer)->export();
-    }
-
-    /**
-     * @return \SprykerEco\Zed\FactFinderSdk\FactFinderSdkConfig
-     */
-    public function getFactFinderConfig()
-    {
-        return $this->getConfig();
+        return $this->createFactFinderProductExporter($this->createCsvFileWriter(), $localeTransfer);
     }
 
     /**
@@ -56,15 +47,7 @@ class FactFinderSdkBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\FactFinderSdk\Dependency\Facade\FactFinderSdkToMoneyInterface
-     */
-    public function getMoneyFacade()
-    {
-        return $this->getProvidedDependency(FactFinderSdkDependencyProvider::MONEY_FACADE);
-    }
-
-    /**
-     * @return \SprykerEco\Zed\FactFinderSdk\Business\Writer\AbstractFileWriter
+     * @return \SprykerEco\Zed\FactFinderSdk\Business\Writer\FileWriterInterface
      */
     protected function createCsvFileWriter()
     {
@@ -72,20 +55,18 @@ class FactFinderSdkBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @param \SprykerEco\Zed\FactFinderSdk\Business\Writer\AbstractFileWriter $fileWriter
+     * @param \SprykerEco\Zed\FactFinderSdk\Business\Writer\FileWriterInterface $fileWriter
      * @param \Generated\Shared\Transfer\LocaleTransfer $localeTransfer
      *
-     * @return \SprykerEco\Zed\FactFinderSdk\Business\Exporter\FactFinderSdkProductExporter
+     * @return \SprykerEco\Zed\FactFinderSdk\Business\Exporter\FactFinderSdkProductExporterInterface
      */
-    protected function createFactFinderProductExporter(AbstractFileWriter $fileWriter, LocaleTransfer $localeTransfer)
+    protected function createFactFinderProductExporter(FileWriterInterface $fileWriter, LocaleTransfer $localeTransfer)
     {
         return new FactFinderSdkProductExporter(
             $fileWriter,
             $localeTransfer,
             $this->getConfig(),
-            $this->getQueryContainer(),
-            $this->getMoneyFacade()
+            $this->getQueryContainer()
         );
     }
-
 }

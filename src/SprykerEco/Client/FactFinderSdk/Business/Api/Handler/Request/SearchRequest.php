@@ -7,13 +7,13 @@
 
 namespace SprykerEco\Client\FactFinderSdk\Business\Api\Handler\Request;
 
+use Exception;
 use Generated\Shared\Transfer\FactFinderSdkSearchRequestTransfer;
 use Generated\Shared\Transfer\FactFinderSdkSearchResponseTransfer;
 use SprykerEco\Client\FactFinderSdk\Business\Api\ApiConstants;
 
 class SearchRequest extends AbstractRequest implements SearchRequestInterface
 {
-
     const TRANSACTION_TYPE = ApiConstants::TRANSACTION_TYPE_SEARCH;
 
     /**
@@ -33,11 +33,10 @@ class SearchRequest extends AbstractRequest implements SearchRequestInterface
             $responseTransfer = $this->converterFactory
                 ->createSearchResponseConverter($searchAdapter)
                 ->convert();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $responseTransfer = new FactFinderSdkSearchResponseTransfer();
         }
 
         return $responseTransfer;
     }
-
 }

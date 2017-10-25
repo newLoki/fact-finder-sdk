@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class NavigationController extends AbstractController
 {
-
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
@@ -27,5 +26,4 @@ class NavigationController extends AbstractController
             Config::get($configKey)[FactFinderSdkConstants::ADMIN_PANEL_URL]
         );
     }
-
 }

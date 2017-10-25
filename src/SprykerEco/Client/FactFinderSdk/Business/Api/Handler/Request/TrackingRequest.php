@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Client\FactFinderSdk\Business\Api\Handler\Request;
 
+use Exception;
 use FACTFinder\Util\Parameters;
 use Generated\Shared\Transfer\FactFinderSdkTrackingRequestTransfer;
 use Generated\Shared\Transfer\FactFinderSdkTrackingResponseTransfer;
@@ -14,7 +15,6 @@ use SprykerEco\Client\FactFinderSdk\Business\Api\ApiConstants;
 
 class TrackingRequest extends AbstractRequest implements TrackingRequestInterface
 {
-
     const TRANSACTION_TYPE = ApiConstants::TRANSACTION_TYPE_SEARCH;
 
     /**
@@ -37,7 +37,7 @@ class TrackingRequest extends AbstractRequest implements TrackingRequestInterfac
 
         try {
             $result = $trackingAdapter->applyTracking();
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $result = false;
         }
 
@@ -68,5 +68,4 @@ class TrackingRequest extends AbstractRequest implements TrackingRequestInterfac
 
         return $data;
     }
-
 }

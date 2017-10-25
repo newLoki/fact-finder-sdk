@@ -11,29 +11,13 @@ use FACTFinder\Data\AdvisorAnswer;
 use FACTFinder\Data\AdvisorQuestion;
 use Generated\Shared\Transfer\FactFinderSdkDataAdvisorAnswerTransfer;
 use Generated\Shared\Transfer\FactFinderSdkDataAdvisorQuestionTransfer;
-use SprykerEco\Client\FactFinderSdk\Business\Api\Converter\BaseConverter;
 
-class AdvisorQuestionConverter extends BaseConverter
+class AdvisorQuestionConverter extends BaseDataConverter implements AdvisorQuestionConverterInterface
 {
-
     /**
      * @var \FACTFinder\Data\AdvisorQuestion
      */
     protected $advisorQuestion;
-
-    /**
-     * @var \SprykerEco\Client\FactFinderSdk\Business\Api\Converter\Data\ItemConverter
-     */
-    protected $itemConverter;
-
-    /**
-     * @param \SprykerEco\Client\FactFinderSdk\Business\Api\Converter\Data\ItemConverter $itemConverter
-     */
-    public function __construct(
-        ItemConverter $itemConverter
-    ) {
-        $this->itemConverter = $itemConverter;
-    }
 
     /**
      * @param \FACTFinder\Data\AdvisorQuestion $advisorQuestion
@@ -77,9 +61,9 @@ class AdvisorQuestionConverter extends BaseConverter
         $factFinderDataAdvisorAnswerTransfer = new FactFinderSdkDataAdvisorAnswerTransfer();
         $factFinderDataAdvisorAnswerTransfer->setText($advisorAnswer->getText());
         $factFinderDataAdvisorAnswerTransfer->setUrl($advisorAnswer->getUrl());
-        $this->itemConverter->setItem($advisorAnswer);
+        $this->dataConverter->setItem($advisorAnswer);
         $factFinderDataAdvisorAnswerTransfer->setItem(
-            $this->itemConverter->convert()
+            $this->dataConverter->convert()
         );
 
         if ($advisorAnswer->hasFollowUpQuestions()) {
@@ -92,5 +76,4 @@ class AdvisorQuestionConverter extends BaseConverter
 
         return $factFinderDataAdvisorAnswerTransfer;
     }
-
 }

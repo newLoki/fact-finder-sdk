@@ -12,9 +12,8 @@ use Generated\Shared\Transfer\FactFinderSdkDataRecordTransfer;
 use SprykerEco\Client\FactFinderSdk\Business\Api\Converter\BaseConverter;
 use SprykerEco\Client\FactFinderSdk\FactFinderSdkConfig;
 
-class RecordConverter extends BaseConverter
+class RecordConverter extends BaseConverter implements RecordConverterInterface
 {
-
     /**
      * @var \FACTFinder\Data\Record
      */
@@ -77,5 +76,4 @@ class RecordConverter extends BaseConverter
         }
         $factFinderDataRecordTransfer->setFields($fields);
     }
-
 }
